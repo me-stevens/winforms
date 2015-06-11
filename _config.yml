@@ -1,0 +1,28 @@
+# Site settings
+title:       Windows Forms Exercises
+description: > # this means to ignore newlines until "baseurl:"
+  This is a work in progress about Windows Forms, from the basics. Control positioning, look and feel, functionality, etc. Step by step, for you to learn or to copy or use as a reference.
+baseurl:     "" # the subpath of your site, e.g. /blog/
+url:         "http://csharpsnippets.tk" # the base hostname & protocol for your site
+permalink:   /:categories/:title
+
+# User names
+twitter_user: _mestevens
+git_user:     me-stevens
+git_repo:     csharp-snippets
+
+# Build settings
+markdown: kramdown
+sass:
+  style: compressed
+exclude: [.gitignore, exclude, _layouts/catevents.html, _layouts/catintro.html, _posts/2014-11-06*]
+
+# VARIABLES
+# Sizes (update in main.scss too)
+thumbs:       250
+thumbs-small: 160
+logos:        100
+
+pairing:
+  "intro":  "Introduction to C&#35;"
+  "events": "Events and delegates"

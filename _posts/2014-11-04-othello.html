@@ -1,0 +1,202 @@
+---
+layout:      post
+category:    "intro"
+
+title:       "Othello / Reversi"
+shortitle:   "Othello"
+excerpt:     "The board game in your console."
+thumb:       "ex04-thumb.png"
+thumb-small: "ex04-thumb-small.png"
+---
+
+				<p>Have you ever played Othello? The Wikipedia has <a href="https://en.wikipedia.org/wiki/Reversi">a nice article explaining the rules</a>. It will probably remind you to other strategy board-games such as draughts (checkers) or the Chinese Go.</p>
+
+						<a href="https://github.com/{{ site.git_user }}/{{ site.git_repo }}" class="btn green">
+{% include github.svg %} Download the example!</a>
+
+				<p>This example is very basic. It doesn't give weights to the different moves nor takes any strategies into account; it only calculates the available positions and the disks that must be flipped.</p>
+
+				<p>The player plays with the black disks and chooses one of the calculated available positions. The computer then does the same with its available positions, choosing one randomly.</p>
+
+				<p>Players are represented by a Boolean variable <code class="language-csharp">player</code> or <code class="language-csharp">thisPlayer</code>, which is <code class="language-csharp">false</code> for blacks.</p>
+
+				<h2>Attributes</h2>
+				<p>The class <code class="language-csharp">Board</code> has two constant attributes <code class="language-csharp">ROWS</code> and <code class="language-csharp">COLS</code> that allow us to change the dimensions of the board.</p>
+
+				<p>The positions of the squares and the information of the disk colour (or if the square is empty) is saved in an integer matrix <code class="language-csharp">board[ROWS, COLS]</code>. Each element of that matrix stores:</p>
+
+				<ul>
+					<li><strong>-1</strong> &ndash; if it is empty,</li>
+					<li><strong>0</strong> &ndash; if it contains a black disk, and</li>
+					<li><strong>1</strong> &ndash; if it contains a white disk.</li>
+				</ul>
+
+				<h2>Methods</h2>
+
+				<p>The methods of the class <code class="language-csharp">Board</code> are:</p>
+
+				<dl>
+					<dt><code class="language-csharp">void opening(int i)</code></dt>
+					<dd>The different openings go here, only one is defined at the moment.</dd>
+
+					<dt><code class="language-csharp">void printBoard()</code> and <code class="language-csharp">void printBoard(int[,] moves)</code></dt>
+					<dd>Prints the board (the <code class="language-csharp">board</code> matrix) to the console, with or without the available positions.</dd>
+
+					<dt><code class="language-csharp">string index2letter(int i, int j)</code></dt>
+					<dd>The different openings go here, only one is defined at the moment.</dd>
+
+					<dt><code class="language-csharp">int letter2index(string position, out int i, out int j)</code></dt>
+					<dd>Converts from algebraic notation to vector notation.</dd>
+
+					<dt><code class="language-csharp">int[,] calculateMoves(Boolean thisPlayer, out int found)</code></dt>
+					<dd>Calculates the available squares for a player. Returns a matrix of ones and zeros, where the ones appear in the available positions.</dd>
+
+					<dt><code class="language-csharp">int newTurn()</code></dt>
+					<dd>Launches a turn for each player. The variable <code class="language-csharp">noMorePos</code> checks if both players have no more available positions, in which case the game is over.</dd>
+
+					<dt><code class="language-csharp">void andTheWinnerIs()</code></dt>
+					<dd>Fancy way of disclosing the winner.</dd>
+
+				</dl>
+
+				<p>In the main class (<code class="language-csharp">Program</code>) a <code class="language-csharp">Board</code> is instantiated, and a loop of 32 turns is created.</p>
+
+				<h2>Explanation of the search algorithm</h2>
+
+				<p>Let's break the algorithm into small parts:</p>
+
+				<ul>
+					<li>Searches for a disk of the opposite colour.</li>
+
+					<li>If nothing is found, <code class="language-csharp">found</code> is set to zero and there are no available squares. We exit the method.</li>
+
+					<li>However, if a disk is found (in the position <code class="language-csharp">(i,j)</code>), it scans the adjacent squares, represented by the indexes <code class="language-csharp">(m,n)</code>, where <code class="language-csharp">i-1 &lt; m &lt; i+1</code> and <code class="language-csharp">j-1 &lt; n &lt; j+1</code>, and checks which are empty:
+
+					<table class="table uncollapse center" summary="This is a 3x3 table showing the enemy's disk in the middle position and all its adjacent squares.">
+						<caption class="wrapper">Indexes (m, n) represent the adjacent squares of the position where the enemy's disk is placed, which are the positions that the payer's disk can occupy.</caption>
+						<tbody>
+							<tr>
+								<td><code class="language-csharp">(m, n) = (i-1, j-1)</code></td>
+								<td><code class="language-csharp">(m, n) = (i-1, j)</code></td>
+								<td><code class="language-csharp">(m, n) = (i-1, j+1)</code></td>
+							</tr>
+							<tr>
+								<td><code class="language-csharp">(m, n) = (i, j-1)</code></td>
+								<td><code class="language-csharp">i, j</code></td>
+								<td><code class="language-csharp">(m, n) = (i, j+1)</code></td>
+							</tr>
+							<tr>
+								<td><code class="language-csharp">(m, n) = (i+1, j-1)</code></td>
+								<td><code class="language-csharp">(m, n) = (i+1, j)</code></td>
+								<td><code class="language-csharp">(m, n) = (i+1, j+1)</code></td>
+							</tr>
+
+						</tbody>
+					</table>
+
+					</li>
+					<li>If the square is not empty or we get out of the board limits, the loop jumps to the next <code class="language-csharp">(m,n)</code> position.</li>
+
+					<li>If we aren't out and the square is empty, we advance in the direction marked by <code class="language-csharp">(m,n)</code>, to search a player's disk. The positions in the direction of advance are given by the pairs <code class="language-csharp">(k,l)</code>.</li>
+
+					<li>To implement the direction of advance, we calculate the sign of the unit increment so that it increases or decreases automatically in the vertical or horizontal direction as appropriate. The solution is <code class="language-csharp">deltam = i-m</code> and <code class="language-csharp">deltan = j-n</code>.</p>
+
+					<div class="columns-2">
+
+					<div class="unbreakable">
+					<table class="table uncollapse center" summary="This is a 4x4 table showing the enemy's disk in the middle position and the diagonal direction of advance from top left to bottom right.">
+						<tbody>
+							<tr>
+								<td><code class="language-csharp">(m, n) =</code><br>
+<code class="language-csharp">(i-1, j-1)</code></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><code class="language-csharp">i, j</code></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td><code class="language-csharp">(i+1, j+1)</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td>. . .</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<p class="center"><strong>Example:</strong></p>
+					<pre><code class="language-csharp">
+(i, j) = (2, 2) 
+(m, n) = (i-1, j-1) = (1, 1)
+deltam = i - m = 1
+deltan = j - n = 1
+					</code></pre>
+					<p>The first pair (k,l) will start searching in (i+deltam, j+deltan) = (3,3) and will continue incrementing in that direction.</p>
+					</div>
+
+					<div class="unbreakable">
+					<table class="table uncollapse center" summary="This is a 4x3 table showing a vertical direction of advance from the bottom up.">
+						<tbody>
+							<tr>
+								<td></td>
+								<td>. . .</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><code class="language-csharp">(i-1,j)</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><code class="language-csharp">(i, j)</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><code class="language-csharp">(m, n) =
+(i+1, j)</code></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<p class="center"><strong>Example:</strong></p>
+					<pre><code class="language-csharp">
+(i, j) = (3, 4) 
+(m, n) = (i+1, j) = (4, 4)
+deltam = i - m = -1
+deltan = j - n =  0
+					</code></pre>
+					<p>The first pair (k,l) will start searching in (i+deltam, j+deltan) = (2,4) and will continue incrementing in that direction.</p>					</div>
+
+					</div>
+
+					</li>
+					<li>We calculate the following positions through the direction marked by the pair <code class="language-csharp">(m,n)</code>, which are given by <code class="language-csharp">(k,l)</code>, until we reach the end of the board or one of these three conditions is met:
+					<ul>
+						<li>An empty square is found. In this case, there is no point in continuing with the search, since we won't be able to capture an enemy's disk.</li>
+						<li>A square occupied by one of the players' disks. In that case, we will be able to capture the enemy's disks. Then, the pair <code class="language-csharp">(m,n)</code> is added to the list of available positions and the <code class="language-csharp">found</code> variable is incremented in one.</li>
+						<li>An enemy's disk is found. In this case, we continue searching until we find an empty square or a player's disk.</li>
+					</ul>
+					</li>
+				</ul>
+
+				<p>The algorithm to flip the disks is similar, but now the increments are <code class="language-csharp">deltam = m-i</code> and <code class="language-csharp">deltan = n-j</code>, and the indexes of the direction start in <code class="language-csharp">(k,l) = (m + deltam, n + deltan)</code>.</p>
+
+				<p class="excerpt">Can you improve this code? For example, how would you add weights for the available positions?<br>
+(<em class="small"><strong>Hint:</strong> You could try the <a href="https://en.wikipedia.org/wiki/Minimax">Minimax algorithm</a></em>)</p>
+
+						<a href="https://github.com/{{ site.git_user }}/{{ site.git_repo }}" class="btn green">
+{% include github.svg %} Download the example!</a>
+

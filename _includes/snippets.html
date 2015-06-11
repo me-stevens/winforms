@@ -1,0 +1,10 @@
+				<nav class="snippets">
+					<ul class="clearfix">{% assign i = 1 %}{% for post in site.posts reversed %}{% if post.category == page.category %}
+						<li {% if post.title == page.title%}class="selected"{%endif%}>
+							<a href="{{ post.url | prepend: site.baseurl }}">{{ i }}</a>
+							<span class="antirotate">
+								<span class="tooltip">{{ post.shortitle }}<img src="{{ "/img/" | append: post.category | append: "/" | append: post.thumb-small | prepend: site.baseurl }}" width="{{ site.thumbs-small }}" height="{{ site.thumbs-small }}" alt="Go to Example: {{ post.shortitle }}" /></span>
+							</span>
+						</li>{% assign i = i | plus: 1 %}{% endif %}{% endfor %}
+					</ul>
+				</nav>

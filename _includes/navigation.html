@@ -1,0 +1,21 @@
+		<!-- NAVIGATION -->
+		<nav class="top clearfix">
+
+			<!-- Nav Left -->
+			<a rel="prev" {% if page.previous %}class="icon" href="{{ page.previous.url }}"{% else %}class="disabled"{% endif %}>
+{% include arrow-left.svg %}
+				<span>{% if page.previous %}{{ page.previous.title }}{% else %} {% endif %}</span>
+			</a>
+
+			<!-- Nav Home -->
+			<a class="icon home" href="{{ site.baseurl }}/">
+{% include home.svg %}
+			</a>
+
+			<!-- Nav Right -->
+			<a rel="next" {% if page.next %}class="icon right" href="{{ page.next.url }}"{% else %}class="right disabled"{% endif %}>
+				<span>{% if page.next %}{{ page.next.title }}{% else %} {% endif %}</span>
+{% include arrow-right.svg %}
+			</a>
+
+		</nav>

@@ -1,0 +1,141 @@
+---
+layout:      post
+category:    "events"
+
+title:       "Introducing Windows Forms applications"
+shortitle:   "WinForms"
+excerpt:     "Introduction to WFAs"
+thumb:       "ex01-thumb.jpg"
+thumb-small: "ex01-thumb-small.gif"
+---
+
+				<p>In the <a href="{{ site.baseurl }}/intro/othello/" rel="prev">previous post</a> we created our last C&#35; console application. From now on, we are going to create Windows Forms applications.</p>
+				
+				<h2>Structure of a WF application</h2>
+				
+				<p>To create a new WF application, go to <strong>File > New > Project...</strong> and then in <strong>Templates > Visual C&#35;</strong> choose <strong>Windows Forms Applications</strong>. Then, choose a name for it and a path to save it.</p>
+				
+				<p>The first thing you see is, a tiny window appears in your coding zone! As mentioned in <a href="{{ site.baseurl }}/intro/introduction/#ides">the introductory post</a>, there are some IDE's that have the designer integrated, and some who don't. Visual Studio is one of the formers.</p>
+				
+				<p>But fear not; to access the code, go to the right panel (the Solution Explorer. If you can't see it go to <strong>View > Solution Explorer</strong>). You will find there the <code>Form1.cs</code>, which is where the code for the functionality of your window goes.</p>
+
+				<p>There is also a <code>Program.cs</code>. You will see an <code>[STAThread]</code> attribute, which  gives you extra information about the function below it (in this case, <code>main()</code>). Without going into too much detail, basically it tells the program that <code>main()</code> will work in a single thread, so it will work consistently with other Windows applications like ControlX, the clipboard, etc. This attribute is just another characteristic of the language.</p> 
+				
+				<p>The last line in <code>main()</code>:</p>
+
+				<pre><code class="language-csharp">
+Application.Run(new Form1());
+				</code></pre>
+
+				<p>creates a new <code>Form1</code> object which is where your window is defined. So let's learn a bit about <code>Form1</code>.</p>
+				
+				
+				
+				<h3>The form code</h3>
+				
+				<p>if you click the little triangle to the left of <code>Form1.cs</code>, it will display three files:</p>
+				<ul>
+					<li><code>Form1.Designer.cs</code>: This file is created automatically by Visual Studio. Don't edit it directly to avoid introducing inconsistencies, and anyway, it will be overwritten each time you hit the <strong>Save</strong> button.</li>
+					<li><code>Form1.resx</code>: It's an XML file with resources, like audio/video clips, text strings, etc. </li>
+					<li><code>Form1.cs</code>: The file you will be editing to add functionality to your form.</li>
+				</ul>
+				
+				If you open <code>Form1.Designer.cs</code>, you will see a <code class="language-csharp">partial class Form1 {}</code> declaration. In C&#35;, a class can be broken down into partials. The other partial is in <code>Form1.cs</code>, where you will see the declaration <code class="language-csharp">public partial class Form1: Form {}</code>. If you remember from <a href="{{ site.baseurl }}/intro/c-sharp-basics/#identifiers">the C&#35; introductory post</a>, if no identifier is used, the class is internal by default (like <code>Form1.Designer.cs</code>), and <code>Form1</code> inherits from the <code>Form</code> class.</p>
+				
+				<p>The first thing that the constructor of <code>Form1.cs</code> does is to call <code class="langiage-csharp">InitializeComponent()</code>, which is defined in the <code>Form1.Designer.cs</code> file as <code class="language-csharp">private void InitializeComponent()</code>. This function includes the objects that we add to the window graphically.</p>
+				
+
+				<h3>Properties</h3>
+
+				<p>In the Solution Explorer, under your project, there is another folder called <strong>Properties</strong>. The dropdown will display an <code>AssemblyInfo.cs</code> file that contains meta information about your project. The <code>Settings.settings</code> file contains user configurations and the <code>Resources.resx</code> contains the settings of extra resources.</p>
+				
+				
+				
+				<h2>Adding elements to your window</h2>
+				
+				<p>Go back to your <code>Form1.cs (design)</code> file, where the window appears (or double click Form1.cs in the Solution Explorer). Click on the Toolbox to expand it. You can click on the pin icon in the upper right corner to keep the Toolbox open while you add elements. Choose for example a button. Drag it and drop it over the window.</p>
+
+				<p>Now check out your <code>Form1.Designer.cs</code> file. What do you see? First, there is a <code class="language-csharp">private System.Windows.Forms.Button button1</code> declaration, and if you check the <code class="language-csharp">InitializeComponents()</code> function, the new <code>Button</code> object is instantiated with:</p>
+				
+				<pre><code class="language-csharp">
+this.button1 = new Windows.System.Forms.Button();
+				</code></pre>
+				
+				<p>and then, there are some configurations like size and location. These are default properties (they start with Uppercase). If you wanted to change these settings or add new ones, you can also do it from the code or from the window's visual designer. Finally, in the same file, where the configurations for the Form itself are, notice how a <code class="language-csharp">this.Controls.Add(this.button1)</code>. This will happen for every element we add to the window.</p>
+				
+				<p>If you run your application now, you will get a window with a button that doesn't do anything (although it does change its state when you click it). Let's change that.</p>
+				
+				
+				
+				<h2>Adding functionality: Events and delegates</h2>
+				
+				<p>Below the Solutions Explorer, you will find the <a href="https://msdn.microsoft.com/en-us/library/ms171352.aspx">Properties tab</a>. From there you can configure your element and overwrite the defaults generated in <code>Form1.Designer.cs</code>. If you don't see the tab, you can find Properties Window on the <strong>View</strong> menu. You can also open it by pressing F4 or by typing <strong>Properties</strong> in the <strong>Quick Launch</strong> window.</p>
+				
+				<p>You can not only modify the visual properties, but the <em>functionality</em> too. If you click on the "thunder" icon, you will find a list of all the "<strong><em>events</em></strong>" that can be triggered by the selected element. In this case, you will get a list of a Button element associated events. For example, the <strong>click</strong> event.</p>
+				
+				<p>Basically, the button will receive events, and then proceed to execute something, depending on the event received. For example, when the button receives a click, it generates an event (the click event). In other words, it generates a "message", and that message is sent to whom? To a "<strong><em>delegate</em></strong>".</p>
+				
+				<p>A delegate is a prototype of a function. It's a class that defines how a certain function has to be defined or behave. It's like a mock-up of the behaviour. All functions who follow the prototype of the delegate subscribe to the event. When the delegate receives the event (the message), it notifies those functions, so that they go and trigger the behaviour defined by the delegate. Those functions could be defined anywhere and not only in the button, in this way, we can associate the clicking of the button to any action we desire.</p>
+				
+				
+				
+				<h3>Events and delegates in action</h3>
+				
+				<p>Let's add a click event to our button. For this, just go to the events list and double click the cell next to "<strong>Click</strong>". Automatically the system will create a function in the <code>Form1</code>class that has a very special syntax:</p>
+				
+				<pre><code class="language-csharp">
+private void button1_Click(object sender, EventArgs e) {
+}
+
+</code></pre>
+				
+				<p>where <code>sender</code> is the object who sent the event. Since we have added an action that affected the environment, the <code>Form1.Designer.cs</code> has been updated with the event we just added to the button, and if you go to the place where the default button properties where defined, you will find a new line:</p>
+
+				<pre><code class="language-csharp">
+this.button1.Click +=  new System.EventHandler(this.button1_Click);
+
+</code></pre>
+				
+				<p>At first, <code>Click</code> may look like just another property of <code>button1</code>, since the syntax is so similar, but it's an event, and the clue to differentiate them from normal properties is that they are instantiating an <code class="language-csharp">EventHandler</code>, which is a delegate. The class <code class="language-csharp">EventHandler</code> defines the behaviour of a function. What function? the one we pass it as an argument, <code class="language-csharp">button1_Click</code>, which is the function we just created. So the delegate stored in the <code>Click</code> event of <code>button1</code> is going to save the behaviour of <<code>button1_Click</code> in <code class="language-csharp">System.EventHandler</code>.</p>
+				
+				<p>In other words, we just made <code class="language-csharp">button1_Click</code> subscribe to the delegate of <code class="language-csharp">button1.Click</code>, so that when <code>button1</code> receives a click, it will generate a <code>Click</code> event, and send it to <code class="language-csharp">System.EventHandler</code>, which will notify our <code class="language-csharp">button1_Click</code> function.</p>
+				
+				<p>What does this function do? Still nothing! We haven't written anything for the function to do yet. Let's do that.</p>
+				
+				<pre><code class="language-csharp">
+private void button1_Click(object sender, EventArgs e) {
+	MessageBox.Show("Ouch! You just clicked me!");
+}
+
+</code></pre>
+				
+				<p>Run the form again and click on the button, a pop-up will appear with our message =)</p>
+
+				<p><code class="language-csharp">MessageBox.Show()</code> is just one way of creating pop-ups in C&#35;.</p>
+
+				
+				<h3>Subscribing to more than one event</h3>
+				
+				<p>Now that we have an event function defined, we can subscribe it to any other events. For example, drag and drop a <strong>Label</strong> element. If you go the events list for the Label, you will see it can also accept Click events. If you click the cell next to the Click event, our previous function will appear. Select it to assign it to the label and run the form. Now you have two ways of launching the pop-up, clicking on the button or clicking on the label!</p>
+				
+				<p class="excerpt">The same function can be notified by events that occur in different types of widgets.</p>
+
+				
+
+<!--				<div class="solution">-->
+<!--					<input type="checkbox" id="show">-->
+<!--					<label for="show" class="icon btn yellow">Solution -->
+<!--{% include arrow-down.svg %}</label>-->
+<!--					<div class="contents">-->
+
+<!--						<pre class="line-numbers"><code class="language-csharp">-->
+<!--						</code></pre>-->
+
+<!--						<p>Jump off balcony, onto stranger's head i like big cats and i can not lie claw drapes. Kick up litter play time stretch find something else more interesting. Spot something, big eyes, big eyes, crouch, shake butt, prepare to pounce hack up furballs. <a href="">Use lap as chair play time hunt by meowing loudly</a>> at 5am next to human slave food dispenser. Burrow under covers flop over present belly, scratch hand when stroked stand in front of the computer screen chew foot, yet sleep in the bathroom sink climb leg. Have secret plans find empty spot in cupboard and sleep all day present belly, </p>-->
+
+<!--						<a href="" class="btn green">-->
+<!--{% include github.svg %} Download the example!</a>-->
+<!--					</div>-->
+<!--				</div>-->
+
+

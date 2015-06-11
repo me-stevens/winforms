@@ -1,0 +1,120 @@
+---
+layout:      post
+category:    "intro"
+
+title:       "Setting everything up"
+shortitle:   "Intro"
+excerpt:     "Setting everything up."
+thumb:       "ex01-thumb.png"
+thumb-small: "ex01-thumb-small.png"
+---
+
+				<p>C&#35; is a programming language that can be understood as a sort of an evolution of C++, just as Java. In fact, the sharp symbol comes from the two plus signs in C++. It is an object oriented language that has been developed by Microsoft for the .NET platform. Although it was pretty much a <a href="http://en.wikipedia.org/wiki/C_Sharp_%28programming_language%29#History">a rip-off of Java</a> at its beginnings (it even had a "mascot"), today both have evolved in very different ways.</p>
+
+				<p>This site will show you how to use C&#35; to build your applications, from console applications to basic Windows Forms.</p>
+
+				<h2>Downloading the IDE: Visual Studio</h2>
+				<p>The IDE used to compile and run the examples is Visual Studio 2012. Visual Studio comes in free versions, like <a href="http://www.visualstudio.com/products/visual-studio-community-vs">Visual Studio 2013</a>, which you can download from the <a href="http://www.visualstudio.com/">Visual Studio site</a>, and the installation is pretty straight-forward.</p>
+
+				<h2>Creating a new file in Visual Studio</h2>
+				<p>We are going to be creating a bunch of different snippets. Let's start with the easiest: a console application, that is, an application that runs in your terminal. Go to <em>File > New > Console application</em>. This will open the editor, populate a new project, and open a <code class="language-bash">Program.cs</code> file ready to edit. C&#35; files have a <code class="language-bash">.cs</code> extension. In the next section you will learn the basics of C&#35; and be able to write some code. Visual Studio has <a href="http://msdn.microsoft.com/en-us/library/43f44291.aspx">IntelliSense</a> enabled by default, which is very useful to complete commands and help you type faster without human syntax errors.</p>
+
+				<h2>Compiling and running files</h2>
+				<p>To compile and run, click the green "<em>play</em>" button. If you had any errors, it will complain and point them in the code. If not, it will run normally. Since we are creating a console application, this will open your command prompt to run it. This prompt will probably be MS-DOS, if you don't like it (and I won't blame you) you could <a href="http://stackoverflow.com/questions/12602411/use-custom-console-for-visual-studio-console-application-debugging">tell Visual Studio to use a custom console</a>. However that can have some unwanted effects, specially when debugging.</p>
+
+				<h2>Changing the syntax highlighter</h2>
+				<p>Visual Studio comes with a light and a dark theme for the GUI, but the themes also change the program's syntax highlighter. If you don't like them, you can find lots of themes on the web, and they are easy to install. All you need is a file with extension <code class="language-bash">.vssettings</code>, whose contents are written in XML, then follow these steps:
+				<ul>
+					<li>In Visual Studio, choose <em>Tools > Import and Export Settings</em>.</li>
+					<li>Choose <em>Import Selected Environment Settings</em> and select whether you want to back up your existing settings or not.</li>
+					<li>Click <em>Browse...</em> and find the <code class="language-bash">.vssettings</code> file.</li>
+					<li>Choose the settings you want to import.</li>
+					<li>Click <em>Finish</em>.</li>
+				</ul>
+
+				<p>One of my favourite dark themes is <strong>Hopscotch</strong>, which I discovered through amazing C. J. Silverio on <a href="https://twitter.com/ceejbot/status/544938127748788224">twitter</a>. You can download it from <a href="https://github.com/idleberg/Hopscotch">it's GitHub repo</a> (which contains files for other editors too), and looks like this when used with Visual Studio's dark theme:</p>
+				<p><img src="{{ site.baseurl }}/img/{{ page.category }}/hopscotch.png" width="883" height="714"></p>
+				<p>Isn't it awesome?</p>
+
+
+				<h2>Changing the look of your application (advanced)</h2>
+				<p>Later on, we will be creating applications with a GUI. If you don't like the default system's windows design, you can try installing libraries like <a href="http://viperneo.github.io/winforms-modernui/">metro</a>, which mimics Windows 8 style and is quite popular.</p>
+
+				<h2>Multi-Line Editing</h2>
+				<p>If you ever worked with <a href="https://en.wikipedia.org/wiki/NEdit">NEdit (Nirvana editor)</a> before, you know that one of the coolest features it has is, to be able to make a "box selection", so that you can select "columns" of text, just by keeping <kbd>Ctrl</kbd> pressed while selecting. Visual studio has now that functionality, as well as the capacity of <a href="https://www.youtube.com/watch?v=qp2WuJ2rEE4">multi-line editing</a>, which I'm sure you'll find pretty handy!
+
+				<h2>Alternatives to C sharp and Visual Studio</h2>
+				<p>There are other platforms, libraries, languages and IDE's out there that you can use to build your desktop interfaces/applications, you don't have to limit yourself to Windows platforms or Visual Studio or C&#35;. Below you will find a list of libraries and a list of IDEs and how to use them together.</p>
+
+
+				<h3>Libraries</h3>
+				<p>The GUI libraries are interface designers, usually made up of a set of graphical control elements (widgets). In other words, they are object-oriented widget toolkits written in some programming language. They can sometimes be used with other languages as well, this is done through <em>bindings</em>. Bindings are wrappers for other languages, libraries that translate from one language to another.</p>
+				<p>If you want to build a GUI for Linux, you have several alternatives. <strong>Python</strong> and <strong>C/C++</strong> are the preferred languages for Ubuntu GUI applications, but there are much more languages you can use. The most used GUI libraries are:</p>
+
+				<ul class="clearfix">
+
+					<li><a href="http://www.gtk.org/">GTK</a>
+						<p><img class="pimg-r" src="{{ site.baseurl }}/img/{{ page.category }}/logogtk.png" width="{{ site.logos }} height="{{ site.logos }}>
+						It supports the standard GTK/GNOME stack of development tools. Although originally GTK+ was developed for the Linux X Window System, it has grown over the years to include back-end support for other well known windowing systems like Windows (32-bit and 64-bit) and Mac OS X. It is written in C but has bindings for <a href="http://www.gtk.org/language-bindings.php">many other languages</a>. You can find more about GTK in the <a href="http://en.wikipedia.org/wiki/GTK%2B">Wikipedia</a> or its home page <a href="http://www.gtk.org/">http://www.gtk.org</a>.</p></li>
+
+					<li><a href="http://qt-project.org/">Qt</a>
+						<p><img class="pimg-r" src="{{ site.baseurl }}/img/{{ page.category }}/logoqt.png" width="{{ site.logos }} height="{{ site.logos }} style="border-radius:50%">
+						Although it started as an application and UI framework for KDE, it is now cross-platform and widely used for developing application software that can be run on various software and hardware platforms with little or no change in the codebase. It's written in C++ or QML, a CSS & JavaScript like language. Qt Creator is the supporting Qt IDE, which has an integrated form designer. You can find more about GTK in the <a href="http://en.wikipedia.org/wiki/Qt_%28software%29">Wikipedia</a> or its home page <a href="http://qt-project.org/">http://qt-project.org/</a>.</p></li>
+
+					<li><a href="https://glade.gnome.org/">Glade</a>
+						<p><img class="pimg-r" src="{{ site.baseurl }}/img/{{ page.category }}/logoglade.png" width="{{ site.logos }} height="{{ site.logos }}>
+						It is a graphical user interface builder/RAD-tool for GTK+, with additional components for GNOME. It is programming language–independent, and has the same list of language bindings as GTK+. The user interfaces designed in Glade are saved as XML, and by using the GtkBuilder GTK+ object these can be loaded by applications dynamically as needed. You can find more about GTK in the <a href="http://en.wikipedia.org/wiki/Glade_Interface_Designer">Wikipedia</a> or its home page <a href="https://glade.gnome.org/">https://glade.gnome.org</a>.</p></li>
+
+				</ul>
+
+				<p>Althoug GTK and Glade are GNOME oriented and Qt is KDE oriented, you can use Qt apps in Gnome and viceversa with no side effects.</p>
+
+				<h3 id="ides">IDES</h3>
+				<p>There is a wide offer of IDE's, as one could imagine. Here are the most used:</p>
+
+				<ul class="clearfix">
+
+					<li><a href="http://www.monodevelop.com/">MonoDevelop</a>
+						<p><img class="pimg-r" src="{{ site.baseurl }}/img/{{ page.category }}/logomono.png" width="{{ site.logos }} height="{{ site.logos }}>
+						This cross-platform IDE is interesting because it ports Visual Studio applications to Ubuntu, although the process is not perfect.</p></li>
+
+					<li><a href="https://netbeans.org/">NetBeans</a>
+						<p><img class="pimg-r" src="{{ site.baseurl }}/img/{{ page.category }}/logonetbeans.png" width="{{ site.logos }} height="{{ site.logos }}>
+						NetBeans is one of the most comprehensive IDES out there. It has an integrated form designer in the IDE. It's mainly used with Java but you can use it for other languages as well. In Java, the Swing libraries allow you to design GUIs, although JavaFX is intended to replace Swing as the standard GUI library for Java SE. JavaFX is a software platform for creating and delivering rich internet applications (RIAs) that can run across a wide variety of devices.</p></li>
+
+					<li><a href="https://eclipse.org/">Eclipse</a>
+						<p><img class="pimg-r" src="{{ site.baseurl }}/img/{{ page.category }}/logoeclipse.png" width="{{ site.logos }} height="{{ site.logos }}>
+						It is also used with Java, specially for Android application design. The interface designer is integrated in the IDE, and you can use JavaFX or the WindowsBuilder.</p></li>
+
+					<li><a href="http://anjuta.org/">Anjuta DevStudio</a>
+						<p><img class="pimg-r" src="{{ site.baseurl }}/img/{{ page.category }}/logoanjuta.png" width="{{ site.logos }} height="{{ site.logos }}>
+						Anjuta has support for many languages, and supports an integrated interface designer through the installation of Glade. It's only available for Unix-like Operating systems of the GNOME Platform</p></li>
+
+					<li><a href="https://wiki.ubuntu.com/Quickly">Quickly</a>
+						<p><img class="pimg-r" src="{{ site.baseurl }}/img/{{ page.category }}/logoquickly.png" width="{{ site.logos }} height="{{ site.logos }} style="border-radius: 50%">
+						Quickly is a command line application that uses Python. It has no GUI or interface designer, although it can be used with independent interface designers who have a GUI.</p></li>
+
+				</ul>
+
+				<p>Some possible combinations you can use to build your interfaces are:</p>
+
+				<ul class="clearfix">
+
+					<li><p>MonoDevelop + GTK&#35; + C, C++, C&#35;.</p></li>
+
+					<li><p>NetBeans + Qt + C++, with the interface designer not integrated into the IDE.</p></li>
+
+					<li><p>NetBeans + Swing/JavaFX + Java, with designer integrated.</p></li>
+
+					<li><p>Eclipse + Swing/JavaFX + Java. Interface designer integrated through the installation of WindowsBuilder.</p></li>
+
+					<li><p>Eclipse + Glade + PyDev, which is a plugin to use Python with Glade. Designer not integrated.</p></li>
+
+					<li><p>Anjuta + GTK+ (designer integrated through the installation of Glade) + C (or C++ with the gtkmm binding). You can use Anjuta with other IDE's, it's independent.</p></li>
+
+					<li><p>Quickly + Glade + Python. Glade is opened as a standalone GUI for the designer.</p></li>
+
+				</ul>
+
+
+

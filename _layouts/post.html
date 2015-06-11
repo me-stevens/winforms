@@ -1,0 +1,26 @@
+---
+layout:   default
+---
+{% include navigation.html %}
+
+
+		<article>			
+
+			<header class="wrapper">
+				<h1><span>{% if page.category %}{% for pair in site.pairing %}{% if pair[0] == page.category %}{{ pair[1] }}{% endif %}{% endfor %}{% endif %}</span>{% if page.title %}{{ page.title }}{% endif %}</h1>	
+
+{% include snippets.html %}
+
+			</header>
+	
+			<section class="main"><div class="wrapper">
+{{ content }}
+			</div></section>
+
+{% include navigation.html %}
+
+			<section class="wrapper">
+{% if page.nocomments == null %}{% include disqus.html %}{% endif %}
+			</section>
+
+		</article>

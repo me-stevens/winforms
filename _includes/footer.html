@@ -1,0 +1,57 @@
+		<footer>
+
+			<div class="wrapper clearfix">
+
+				<div class="footer-col">
+					<ul>
+						<li>Exe files by A. Oltra | Code by <a href="http://octopusinvitro.tk">Octopus in Vitro</a>.</li>
+						<li>Site by Octopus in Vitro.</li>
+						<li>Gallery and effects by <a href="http://tympanus.net/codrops/">Codrops</a>.</li>
+						<li><a href="prismjs.com/">Prism</a> syntax highlighter by Lea Verou.</li>
+						<li>Logo by Cronoxyd (Own work) [<a href="http://creativecommons.org/licenses/by-sa/3.0">CC-BY-SA-3.0</a>], via Wikimedia Commons.</li>
+					</ul>
+				</div>
+
+				<div class="footer-col">
+					<ul class="social-wrap">
+
+{% if site.git_user %}
+						<li>
+							<a href="https://github.com/{{ site.git_user }}/{{ site.git_repo }}" class="social">
+								<span class="icon">
+{% include github.svg %}								</span>
+							</a>
+						</li>
+						<li>
+							<a href="https://bitbucket.org//{{ site.git_user }}/{{ site.git_repo }}" class="social">
+								<span class="icon">
+{% include bitbucket.svg %}							</span>
+							</a>
+						</li>
+						<li>
+							<a href="https://gitlab.com/{{ site.git_user }}/{{ site.git_repo }}" class="social">
+								<span class="icon">
+{% include gitlab.svg %}								</span>
+							</a>
+						</li>{% endif %}
+{% if site.twitter_user %}
+						<li>
+							<a href="https://twitter.com/{{ site.twitter_user }}" class="social">
+								<span class="icon">
+{% include twitter.svg %}								</span>
+							</a>
+						</li>{% endif %}
+
+					</ul>
+				</div>
+
+				<div class="footer-col">
+
+					<p class="text">{{ site.description }}</p>
+
+					<p><a title="By Cronoxyd (Own work) [CC-BY-SA-3.0 (http://creativecommons.org/licenses/by-sa/3.0)], via Wikimedia Commons" href="http://commons.wikimedia.org/wiki/File%3AVisual_Studio_2013_Logo.svg"><img width="80" alt="Visual Studio 2013 Logo" src="//upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Visual_Studio_2013_Logo.svg/256px-Visual_Studio_2013_Logo.svg.png" style="display:block;margin:auto"/></a></p>
+
+				</div>
+			</div>
+			<p class="center small"><a href="{{ site.baseurl }}/">C&#35; snippets | &copy 2014</a></p>
+		</footer>

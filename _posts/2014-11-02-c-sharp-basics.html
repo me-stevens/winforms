@@ -1,0 +1,560 @@
+---
+layout:      post
+category:    "intro"
+
+title:       "Your first C&#35; app"
+shortitle:   "C&#35; basics"
+excerpt:     "Your first C&#35; app."
+thumb:       "ex02-thumb.png"
+thumb-small: "ex02-thumb-small.png"
+---
+				<p>I'll suppose that you already have some programming knowledge of an object oriented language like C++ or Java. Here you'll find some of the basics of C&#35; compared to these two languages for an easier assimilation. It does not pretend to be exhaustive, you can find far more detailed comparisons in <a href="http://msdn.microsoft.com/en-us/library/ms228358%28v=vs.90%29.aspx">C&#35; for Java Developers</a> and <a href="http://msdn.microsoft.com/en-us/library/yyaad03b%28v=vs.90%29.aspx">C&#35; for C++ Developers</a>.</p>
+			</div>
+
+				<!-- BASIC COMPARISON TABLE-->
+				<table class="table" style="border-collapse: separate;" summary="This table compares the most relevant concepts in Java, C++ and C&#35;. The aim is to introduce the latter language in an assimilable way.">
+					<caption class="wrapper">Brief comparison between Java, C++ and C&#35;</caption>
+					<thead>
+						<tr>
+							<th class="nostyle"></th>
+							<th class="special"><span>Java</span></th>
+							<th class="special"><span>C++</span></th>
+							<th class="special"><span>C&#35;</span></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>Imports</th>
+							<td><code class="language-csharp">import java.lang.Math.*;</code></td>
+							<td><code class="language-csharp">#include &lt;cmath&gt;</code></td>
+							<td><code class="language-csharp">using System.Math;</code></td>
+						</tr>
+						<tr>
+							<th>Name space</th>
+							<td><code class="language-csharp">package ParentDir.ChildDir;
+
+// Also
+ParentDir.ChildDir.function(){}</code></td>
+							<td><code class="language-csharp">using namespace std;
+
+// Also
+using namespace myNamespace {
+	function(){}
+}
+
+myNamespace::function(){}</code></td>
+							<td><code class="language-csharp">namespace ParentDir.ChildDir {}</code></td>
+						</tr>
+						<tr>
+							<th>Constants</th>
+							<td><code class="language-csharp">private static final double PI = 3.14159;</code></td>
+							<td><code class="language-csharp">//initialized at compiling time
+const double pi = 3.14159;</code>
+								<code class="language-csharp">//happens before the program is compiled
+#define PI 3.14159</code></td>
+							<td><code class="language-csharp">//initialized at compiling time
+private const int PI = 3.14159;</code>
+								<code class="language-csharp">//initialized at run time
+private readonly int ID;</code></td>
+						</tr>
+						<tr>
+							<th>SD Output</th>
+							<td><code class="language-csharp">System.out.println("Text " + variable);</code></td>
+							<td><code class="language-csharp">cout &lt;&lt; "Text " &lt;&lt; variable &lt;&lt; endl;</code></td>
+							<td><code class="language-csharp">Console.WriteLine("Text {0}", variable);</code></td>
+						</tr>
+						<tr>
+							<th>SD Input</th>
+							<td><code class="language-csharp">Scanner sc = new Scanner(System.in);
+int i = sc.nextInt();</code></td>
+							<td><code class="language-csharp">cin &gt;&gt; i;</code></td>
+							<td><code class="language-csharp">i = Console.Read();</code></td>
+						</tr>
+						<tr>
+							<th>Arrays</th>
+							<td><code class="language-csharp">int[] x   = new int[10];
+int[][] y = new int[2][3];</code></td>
+							<td><code class="language-csharp">int x [3]   = {1, 2, 3};
+int y[2][3] = { {1, 2, 3}, {1, 2, 3} };</code></td>
+							<td><code class="language-csharp">int[] x  = new int[10];
+int[,] y = new int[2,3];</code></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<!-- CLASSES COMPARISON TABLE-->
+				<table class="table" style="border-collapse: separate;" summary="This table compares the handling of classes in Java, C++ and C&#35;. The aim is to introduce the latter language in an assimilable way.">
+					<caption class="wrapper">Classes in Java, C++ and C&#35;</caption>
+					<thead>
+						<tr>
+							<th class="nostyle"></th>
+							<th class="special"><span>Java</span></th>
+							<th class="special"><span>C++</span></th>
+							<th class="special"><span>C&#35;</span></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>Inheritance</th>
+							<td><code class="language-csharp">public class Child extends Parent {}</code></td>
+							<td><code class="language-csharp">class Child: public Parent {}</code></td>
+							<td><code class="language-csharp">public class Child : Parent {}</code></td>
+						</tr>
+						<tr>
+							<th>Constructors</th>
+							<td><code class="language-csharp">public Parent() {
+}
+
+public Parent(int parameter1) {
+	this.parameter1 = parameter1;
+}
+
+/* CHILD CONSTRUCTORS */
+public Child() {
+	super();
+}
+
+public Child(int parameter1) {
+	super(parameter1);
+}
+
+public Child(int parameter1, int parameter2) {
+	super(parameter1);
+	this.parameter2 = parameter2;
+}</code></td>
+							<td><code class="language-csharp"></code></td>
+							<td><code class="language-csharp">public Parent() {
+}
+
+public Parent(int parameter1) {
+	this.parameter1 = parameter1;
+}
+
+// "this" calls the constructor of the child
+// "base" calls the constructor of the parent
+public Child(int id) : this(id, false) {
+}
+
+public Child(int parameter1) : base(parameter1){
+	this.parameter2 = parameter2;
+}
+
+public Child(int id, int parameter1) : base(parameter1){
+	this.id = id;
+	this.parameter2 = parameter2;
+}</code></td>
+						</tr>
+						<tr>
+							<th>Method overloading</th>
+							<td><code class="language-csharp">//Happens at compiling time
+public void accelerate() {}
+public void accelerate(int increment) {}
+public void accelerate(double newaccvalue) {}</code></td>
+							<td><code class="language-csharp">public: {
+	void accelerate() {}
+	void accelerate(int increment) {}
+	void accelerate(double newaccvalue) {}
+}</code></td>
+							<td><code class="language-csharp">public void accelerate() {}
+public void accelerate(int increment) {}
+public void accelerate(double newaccvalue) {}</code></td>
+						</tr>
+						<tr>
+							<th>Method overriding</th>
+							<td><code class="language-csharp">//happens at run time
+public class Parent {
+	public int someMethod() {
+		return 3;
+	}
+}
+
+public class Child extends Parent {
+	public int someMethod() {
+	    return 4;
+    }
+}</code></td>
+							<td><code class="language-csharp">class Parent {
+	public:
+		int someMethod() {
+			return 3;
+		}
+};
+
+class Child : public Parent {
+	public:
+		int someMethod() {
+			return 4;
+	}
+} </code></td>
+							<td><code class="language-csharp">public class Parent {
+	public int someMethod() {
+		return 3;
+	}
+}
+
+public class Child : Parent {
+	public int someMethod() {
+	    return 4;
+    }
+}</code></td>
+						</tr>
+
+						<tr>
+							<th>Method extension</th>
+							<td><code class="language-csharp">public class Parent {
+	public void printMethod() {
+		System.out.println("Printed in Parent.");
+	}
+}
+
+public class Child extends Parent {
+	public void printMethod() {
+		super.printMethod();
+		System.out.println("Printed in Subclass");
+	}
+}</code>
+								<span class="text">(happens at run time)</span>
+							</td>
+							<td><code class="language-csharp"></code></td>
+							<td><code class="language-csharp">public class Parent {
+	public void printMethod() {
+		Console.WriteLine("Printed in Parent.");
+	}
+}
+
+public class Child : Parent {
+	public void printMethod() : base() {
+		Console.WriteLine("Printed in Parent.");
+	}
+}</code></td>
+						</tr>
+					</tbody>
+				</table>
+
+
+
+			<div class="wrapper">
+				<p>C&#35; also has two new access modifiers, internal and protected internal:</p>
+				<ul id="identifiers">
+					<li><strong>Public:</strong> Visible to all.</li>
+					<li><strong>Protected:</strong> Visible only from derived classes.</li>
+					<li><strong>Private:</strong> Visible only within the given class.</li>
+					<li><strong>Internal:</strong> Visible only within the same assembly.</li>
+					<li><strong>Protected internal:</strong> Visible only to the current assembly or types derived from the containing class.</li>
+				</ul>
+
+				<p>"Same assembly" means inside the same file. In Java, each class goes in its own file, and there can't be more than 1 class per file. In C&#35;, you can have as many classes as you want inside the same file. If no identifier is used, all classes are internal by default.</p>
+
+
+
+				<h2>Sample "Hello world" console application</h2>
+
+				<p>Using some of the code in the tables above, and following <a href="{{ site.baseurl }}/intro/introduction">the introductory guide</a>, we could write something like this:</p>
+
+				<pre class="line-numbers"><code class="language-csharp">
+using System;
+
+namespace HelloWorld {
+
+	class Program {
+
+		static void Main(string[] args) {
+
+			// Create an array of words
+			// the string type is all-lowercase
+			string[] helloword  = new string[5];
+
+			// Arrays start in 0
+			// Strings are written in quotes
+			helloword[0] = "This";
+			helloword[1] = "is";
+			helloword[2] = "my";
+			helloword[3] = "first";
+			helloword[4] = "C sharp app";
+
+			// One way of looping through an array
+			for (int i = 0; i&lt;helloword.Length; i++) {
+				Console.WriteLine(helloword[i] + " ");
+			}
+			Console.WriteLine();
+
+			// Another way of looping through an array
+			foreach (string s in helloword) {
+				Console.WriteLine(s + " ");
+			}
+			Console.WriteLine();
+
+			// The empty call to WriteLine inserts a return.
+		}
+	}
+}
+				</code></pre>
+
+				<p>And the output will be:</p>
+
+				<pre><code class="language-bash">
+This is my first C sharp app
+This is my first C sharp app
+				</code></pre>
+
+				<p class="excerpt">Now go on and try to write your first C&#35; application using all you have learned! Or click the big button to see an example.</p>
+
+
+
+				<div class="solution">
+					<input type="checkbox" id="show">
+					<label for="show" class="icon btn yellow">Example 
+{% include arrow-down.svg %}</label>
+					<div class="contents">
+
+						<h2>Example: BattleStar Galactica</h2>
+						<p>I propose a very simple console app inspired on the awesome science-fiction TV-show <em>BattleStar Galactica</em>. The application uses almost every concept mentioned above and requires very few interaction from the user. Basically, it creates some vipers (the good guys) and some Cylons (the bad guys) with a certain amount of life, and then they shoot at each other until one group dies.</p>
+
+						<p><strong><em>Also:</em></strong> this is the first <em>thing</em> I ever made with C&#35;! My Hello World =)</p>
+
+						<h3>Download the example!</h3>
+
+						<a href="https://github.com/{{ site.git_user }}/{{ site.git_repo }}" class="btn green">{% include github.svg %} GitHub</a>
+						<a href="https://bitbucket.org/{{ site.git_user }}/{{ site.git_repo }}" class="btn green">{% include bitbucket.svg %} BitBucket</a>
+						<a href="https://gitlab.com/{{ site.git_user }}/{{ site.git_repo }}" class="btn green">{% include gitlab.svg %} GitLab</a>
+
+						<h3>The classes</h3>
+						<p>In C&#35;, we can create our classes in the same file, so we create a <code class="language-csharp">Battleship</code> class to define general attributes and methods for a ship, and then a <code class="language-csharp">Viper</code> and <code class="language-csharp">CylonRaider</code> classes that inherit from <code class="language-csharp">Battleship</code> and implement their own particularities.</p>
+
+						<p>The common attribute for all spaceships is the amount of life, which can be zero but not negative. First, see how the attribute <code class="language-csharp">Life</code> is defined. This is the way C&#35; has of doing three things at the same time: declaring the variable, and defining the setter and getter. Also, the name of a variable defined this way starts with a capital letter. These are called "named attributes" or "<a href="https://msdn.microsoft.com/en-us/library/k69wcs43.aspx">read/write properties</a>". Second, there are two constructors defined. One has no parameters, and assigns a "default" value of 10 for the <code class="language-csharp">Life</code> attribute. To do this, it calls the other constructor, the one that accepts a parameter to set the value of the Life attribute. Thanks to the way we defined the variable and its setter and getter, updating or retrieving its value works as it would for a normal variable.</p>
+
+						<p>The common methods are <code class="language-csharp">Shoot()</code>, which takes an array of "victim" battleships as parameter, and <code class="language-csharp">Receive()</code>. Notice how their names start with a capital letter too, according to the <a href="https://msdn.microsoft.com/en-us/library/4df752aw%28v=vs.71%29.aspx">Method naming guidelines</a> (another difference with Java). Since these two methods can be overwritten by the derived classes <code class="language-csharp">Viper</code> and <code class="language-csharp">CylonRaider</code>, we add the <code class="language-csharp">virtual</code> modifier.</p>
+
+						<pre class="line-numbers"><code class="language-csharp">
+/* *********************************************************
+ * CLASS BATTLESHIP
+ * *********************************************************/
+class Battleship {
+
+	// The special way C&#35; has to define an attribute
+	// as well as its setter and getter in one go:
+	public int Life {
+		get;
+		set;
+	}
+
+	public Battleship() : this(10) {
+	}
+
+	public Battleship(int Life) {
+		this.Life = Life;
+	}
+
+	virtual public void Shoot(Battleship[,] targets) {
+		Random rnd     = new Random();
+		Boolean found  = true;
+
+		do {
+			int i      = rnd.Next(0, targets.GetLength(0));
+			int j      = rnd.Next(0, targets.GetLength(1));
+			if (targets[i, j].Life > 0) {
+				Console.Write("Hit!!");
+				targets[i, j].Receive();
+				found = false;
+			}
+		} while (found);
+	}
+
+	virtual public void Receive() {
+		// Implemented by child classes
+	}
+}
+						</code></pre>
+
+						<p>The <code class="language-csharp">CylonRaider</code> class inherits from this <code class="language-csharp">Battleship</code> class, and defines its own extra method <code class="language-csharp">PrintSquadron()</code> and an attribute <code class="language-csharp">ID</code>, which is going to be readable but not writeable, and <code class="language-csharp">Viper</code>s define two extra attributes. Both overwrite the parent method <code class="language-csharp">Receive()</code>.</p>
+
+						<p>Since these two classes inherit from <code class="language-csharp">Battleship</code>, the name of the class adds a <code class="language-csharp"> : Battleship</code> call at the end, and the constructor adds a <code class="language-csharp"> : base(Life)</code>. Then, from the constructor without parameters, (or with the extra parameters defined in the daughter classes), we make a call to the "real" constructor using <code class="language-csharp"> : this(extra parameters, Life)</code>, just as we did before in <code class="language-csharp">Battleship</code>. But now, the modifier makes more sense: <code class="language-csharp">this</code> differentiates the call to the class constructor from the call to the inherited constructor.</p>
+
+						<p>The extra method <code class="language-csharp">PrintSquadron()</code> is going to print the matrix of Cylons, showing how many of them are alive or dead.</p>
+
+						<pre class="line-numbers"><code class="language-csharp">
+/* *********************************************************
+ * CLASS CylonRAIDER
+ * *********************************************************/
+class CylonRaider : Battleship {
+
+	// Battery of spaceships
+	public static int CylonRaiderCounter = 0;
+
+	// Pilot and ship are one in CylonRaiders
+	private readonly int ID;
+
+	public CylonRaider(int ID) : this(ID, 5) {
+	}
+
+	public CylonRaider(int ID, int Life) : base(Life) {
+		this.ID = ID;
+		CylonRaiderCounter++;
+	}
+
+	public int getID() {
+		return ID;
+	}
+
+	override public void Receive() {
+		Life /= 2;
+		Console.WriteLine(" Cylon {0}'s life reduced to {1}", ID, Life);
+		if (Life <= 0) {
+			CylonRaiderCounter--;
+			Console.WriteLine("\tR. I. P. Cylon {0}", ID);
+		}
+	}
+
+	public static void PrintSquadron(Battleship[,] squadron) {
+		int col = 0;
+		Console.Write("\n\t");
+		foreach (CylonRaider ship in squadron) {
+			if (ship.Life <= 0)
+				Console.Write("X ");
+			else
+				Console.Write("C ");
+				col++;
+			if (col % 5 == 0)
+				Console.Write("\n\n\t");
+		}
+	}
+}
+
+/* *********************************************************
+ * CLASS VIPER
+ * *********************************************************/
+class Viper : Battleship {
+
+	public static int viperCounter = 0;
+
+	// Vipers may have many pilots
+	public string Pilot {
+		get;
+		set;
+	}
+
+	public string PilotWarCry {
+		get;
+		set;
+	}
+
+	public Viper(string Pilot, string PilotWarCry) : this(Pilot, PilotWarCry, 10) {
+	}
+
+	public Viper(string Pilot, string PilotWarCry, int Life) : base(Life) {
+		this.Pilot = Pilot;
+		this.PilotWarCry = PilotWarCry;
+		viperCounter++;
+		Console.WriteLine("{0}, GO AHEAD!", Pilot);
+	}
+
+	override public void Receive() {
+		Life /= 2;
+		Console.WriteLine(" {0}'s life reduced to {1}", Pilot, Life);
+		if (Life <= 0) {
+			viperCounter--;
+			Console.WriteLine("\tR. I. P. {0}", Pilot);
+		}
+	}
+}
+						</code></pre>
+
+						<h3>The main program</h3>
+						<p>In the same file, we have the default Visual Studio class <code class="language-csharp">program</code>, with the <code class="language-csharp">Main()</code> method. We can define other methods too for this class. There are <code class="language-csharp">TypeWrite()</code>, to write to the console letter by letter like in a science fiction movie, and <code class="language-csharp">Combat()</code>, where the vipers and Cylon raiders are going to shoot each other.</p>
+
+						<p>Also, <strong><em>they don't need to be defined as static</em></strong>, if you don't want to get errors for calling non-static methods inside the static <code class="language-csharp">Main()</code> method, all you have to do is create an instance of the <code class="language-csharp">Program</code> class (inception, anybody?) and call the methods using that instance:</p>
+
+						<pre class="line-numbers"><code class="language-csharp">
+class Program {
+
+	static void Main(string[] args) {
+
+		Program p = new Program();
+
+		p.TypeWrite()...
+		p.Combat()...
+
+		// etc.
+
+		public void TypeWrite(string text) { ... }
+
+		public int Combat(Battleship[,] CylonRaiderSquadron, Battleship[,] vipers) { ... }
+						</code></pre>
+
+						<p>The <code class="language-csharp">TypeWrite()</code> method loops on every character inside the string provided as parameter, and types it in the console after a delay by the system function <code class="language-csharp">Sleep()</code>:</p>
+
+ 						<pre class="line-numbers"><code class="language-csharp">
+/*  *********************************************************
+*                       METHOD TypeWrite
+* *********************************************************/
+public void TypeWrite(string text) {
+	for (int i = 0; i&lt;text.Length; i++) {
+		Console.Write(text[i]);
+		System.Threading.Thread.Sleep(30);
+	}
+}
+						</code></pre>
+
+						<p>The <code class="language-csharp">Combat()</code> method takes two <code class="language-csharp">Battleship</code> arrays, (one for Cylons and one for vipers) and makes one Cylon rider shoot a viper, and then a viper shoots a Cylon. This is done in turns.</p>
+
+ 						<pre class="line-numbers"><code class="language-csharp">
+/* *********************************************************
+*                       METHOD COMBAT
+* *********************************************************/
+public int combat(Battleship[,] CylonRaiderSquadron, Battleship[,] vipers) {
+	int turn = 0;
+
+	foreach (CylonRaider raider in CylonRaiderSquadron) {
+		turn++;
+		Console.WriteLine("\n-----------------------");
+		Console.WriteLine("\n\tROUND {0}", turn);
+		Console.WriteLine("\n-----------------------\n");
+
+		// One raider shoots one of the vipers
+		if (raider.Life > 0) {
+			raider.Shoot(vipers);
+		}
+
+		if (Viper.viperCounter == 0) {
+			Console.WriteLine("\n----------------------------------------");
+			typeWrite("\n  Cylons win, Human race is wiped out\n\tof the galaxy.\n");
+			Console.WriteLine("\n----------------------------------------");
+			return 1;
+	}//----------------------------------
+
+		foreach (Viper viper in vipers) {
+			if (viper.Life > 0) {
+				Console.WriteLine("\n" + viper.Pilot + ": " + viper.PilotWarCry);
+
+				// One viper shoots one of the Cylons
+				viper.Shoot(CylonRaiderSquadron);
+				if (CylonRaider.CylonRaiderCounter == 0) {
+					Console.WriteLine("\n----------------------------------------");
+					typeWrite("\n  Humans win, Cylons are wiped out... \n  ...for now.\n");
+					Console.WriteLine("\n----------------------------------------");
+					return 2;
+				}//-----------------------------------
+			}
+		}
+
+		Console.WriteLine("\nThere are {0} Cylons alive!!", CylonRaider.CylonRaiderCounter);
+		CylonRaider.printSquadron(CylonRaiderSquadron);
+
+		// Output pseudo control
+		if (turn % 5 == 0 && turn % 20 != 0) {
+			Console.Write("\nPress enter for 5 more turns ");
+			Console.ReadLine();
+		}
+	}
+	return 0;
+}
+						</code></pre>
+						<p>And that's all really! Now, if you open this program on your Visual Studio and run it, you will see that you only have to hit Enter for the next round of turns to be displayed on the console.</p>
+
+						<p class="excerpt">Try and edit the program so that the player decides which spot in the Cylon's squadron they want to hit, or add any other interaction you come up with!</p>
+
+						<a href="https://github.com/{{ site.git_user }}/{{ site.git_repo }}" class="btn green">{% include github.svg %} GitHub</a>
+						<a href="https://bitbucket.org/{{ site.git_user }}/{{ site.git_repo }}" class="btn green">{% include bitbucket.svg %} BitBucket</a>
+						<a href="https://gitlab.com/{{ site.git_user }}/{{ site.git_repo }}" class="btn green">{% include gitlab.svg %} GitLab</a>
+					</div>
+				</div>

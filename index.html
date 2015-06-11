@@ -1,0 +1,64 @@
+---
+layout: page
+subtitle1: "Snippets of"
+title:     " C Sharp (C&#35;) "
+subtitle2: "and WinForms/WPF examples"
+---
+			<p class="excerpt">C&#35; snippets, step by step, for you to learn or to copy or use as a reference (this is a work in progress).</p>
+
+
+			<!-- ADAPTATION OF CODROPS' FUCKING INSANE GRID -->
+			<!-- You can find it and much more awesome demos here: -->
+			<!-- http://tympanus.net/Tutorials/ShapeHoverEffectSVG/index2.html -->
+
+			<!-- ****** Grid -->{% for pair in site.pairing %}
+			<section class="grid clearfix">
+
+				<h2>{{ pair[1] }}</h2>{% for post in site.posts reversed %}{% if post.category == pair[0] %}
+
+				<a href="{{ post.url | prepend: site.baseurl }}" data-path-hover="m 0,0 0,47.7775 c 24.580441,3.12569 55.897012,-8.199417 90,-8.199417 34.10299,0 65.41956,11.325107 90,8.199417 L 180,0 z">
+					<figure>
+						<img src="{{ site.baseurl }}/img/{{ pair[0] }}/{{ post.thumb }}" width="{{ site.thumbs }}" height="{{ site.thumbs }}" alt="Go to Example: {{ post.shortitle }}" />
+						<svg viewBox="0 0 180 320" preserveAspectRatio="none"><path d="m 0,0 0,171.14385 c 24.580441,15.47138 55.897012,24.75772 90,24.75772 34.10299,0 65.41956,-9.28634 90,-24.75772 L 180,0 0,0 z"/></svg>
+						<figcaption>
+							<h3>{{ post.shortitle }}</h3>
+							<p>{{ post.excerpt | strip_html }}</p>
+							<span>View</span>
+						</figcaption>
+					</figure>
+				</a>{% endif %}{% endfor %}
+
+			</section>{% endfor %}
+
+			
+			<!-- ****** Script using SNAP.SVG -->
+			<script src="{{ "/js/vendor/snap.svg-min.js" | prepend: site.baseurl }}"></script>
+			<script>
+			(function() {
+	
+				function init() {
+					var speed  = 330,
+						easing = mina.backout;
+
+					[].slice.call ( document.querySelectorAll( '.grid > a' ) ).forEach( function( el ) {
+						var s = Snap( el.querySelector( 'svg' ) ), path = s.select( 'path' ),
+							pathConfig = {
+								from : path.attr( 'd' ),
+								to : el.getAttribute( 'data-path-hover' )
+							};
+
+						el.addEventListener( 'mouseenter', function() {
+							path.animate( { 'path' : pathConfig.to }, speed, easing );
+						} );
+
+						el.addEventListener( 'mouseleave', function() {
+							path.animate( { 'path' : pathConfig.from }, speed, easing );
+						} );
+					} );
+				}
+
+				init();
+
+			})();
+			</script>
+
