@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32602.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Othello", "Othello\Othello.csproj", "{1644F36C-16BD-4806-948A-2BF0E59ED27E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "OthelloTests\Tests.csproj", "{80844540-42BD-4F43-B968-023F2CFB5248}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1644F36C-16BD-4806-948A-2BF0E59ED27E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1644F36C-16BD-4806-948A-2BF0E59ED27E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1644F36C-16BD-4806-948A-2BF0E59ED27E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1644F36C-16BD-4806-948A-2BF0E59ED27E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80844540-42BD-4F43-B968-023F2CFB5248}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80844540-42BD-4F43-B968-023F2CFB5248}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80844540-42BD-4F43-B968-023F2CFB5248}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80844540-42BD-4F43-B968-023F2CFB5248}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {47CE97C5-D09A-46E2-9629-F212AA40606F}
+	EndGlobalSection
+EndGlobal
